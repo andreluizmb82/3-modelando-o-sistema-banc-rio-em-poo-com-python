@@ -1,5 +1,4 @@
 from transactions import Transaction, Deposit, Withdraw
-from datetime import datetime
 
 RED = "\033[31m"
 YELLOW = Y = "\033[33m"
@@ -12,32 +11,36 @@ RESET_COLOR = RC = "\033[0m"
 
 class Statement:
     def __init__(self) -> None:
-        self._transactions: list[Transaction] = []
+        self._history: str = ""
         
     def add_transaction(self, transaction: Transaction) -> None:
-        self._transactions.append(transaction)
+        self._history += str(transaction)
+        
+    
+    def get_statement(self, balance: float) -> str:
+        # Header 
+        statement =YELLOW + "\n" + "EXTRATO".center(52, "=") + RESET_COLOR
+        
+        # Body
+        if self._history == "":
+            statement += RED + "\nNão foram realizadas movimentações."  + RESET_COLOR
+        else:
+            statement += self._history
+                   
+        # Footer
+        statement += GREEN + f"\n\nSaldo: R$ {balance:.2f}" + RESET_COLOR
+        statement += (YELLOW + "\n" + " FIM ".center(52, "=") + RESET_COLOR)
+        return statement
         
     def __str__(self) -> str:
-        statement_body = ""
-        
-        for transaction in self._transactions:
-            statement_body += transaction.__str__()
-        
-        statement =YELLOW + "EXTRATO".center(50, "=") + RESET_COLOR
-        if statement_body == "":
-            statement += RED + "\nNão foram realizadas movimentações."
-        else:
-            statement += statement_body
-        
-        return statement
+        return self._history
         
 if __name__ == "__main__":
     statement = Statement()
     
     print (statement)
     
-    date = datetime.now()
-    ste_date = date.strftime("%d/%m/%Y %H:%M")
+
     statement.add_transaction(Deposit(100))
     statement.add_transaction(Deposit(150))
     statement.add_transaction(Withdraw(200))

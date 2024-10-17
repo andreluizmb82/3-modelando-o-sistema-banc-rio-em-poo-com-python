@@ -10,7 +10,7 @@ class Transaction(ABC):
     def __init__(self, value: float) -> None:
         self._value: float = value
         date = datetime.now()
-        self._date: str = date.strftime("%d/%m/%Y %H:%M")
+        self._date: str = date.strftime("%d/%m/%Y %H:%M:%S")
     
     @property
     def value(self) -> float:
@@ -23,12 +23,12 @@ class Transaction(ABC):
 
 class Withdraw(Transaction): 
     def __str__(self) -> str:
-        return RED + f"Saque: \t\tR$ {self.value:.2f} \t {self.date}\n" + RESET_COLOR
+        return RED + f"\nSaque: \t\tR$ {self.value:.2f} \t {self.date}" + RESET_COLOR
     
 
 class Deposit(Transaction): 
     def __str__(self) -> str:
-        return GREEN + f"Depósito: \tR$ {self.value:.2f}\t {self.date}\n" + RESET_COLOR
+        return GREEN + f"\nDepósito: \tR$ {self.value:.2f}\t {self.date}" + RESET_COLOR
     
 if __name__ == "__main__":
     print(Withdraw(100))
