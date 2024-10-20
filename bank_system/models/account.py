@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import Any
-from statement import Statement
-from transactions import Deposit, Withdraw
+from .statement import Statement
+from .transactions import Deposit, Withdraw
 
 RED = "\033[31m"
 YELLOW = Y = "\033[33m"
@@ -61,13 +61,23 @@ class Account (ABC):
         return Account._total_number_of_accounts
     
     @staticmethod
+    def get_account(number: int) -> Any:
+        try:
+            print("number", number)
+            ac = Account._accounts[number - 1]
+            print(ac)
+            return ac
+        except :
+             raise ValueError(f"{RED}Nenhuma conta encontrada em nossa base de dados!{RESET_COLOR}")
+    
+    @staticmethod
     def get_accounts() -> list[Any]:
         return Account._accounts[:]
     
     @classmethod
     def get_str_accounts(cls) -> str:
         if cls._accounts == []:
-            return "Nenhuma conta encontrada em nossa base de dados!"
+            return f"{RED}Nenhuma conta encontrada em nossa base de dados!{RESET_COLOR}"
         accounts = ""
         for account in Account._accounts:
             accounts += account.get_str_account()
