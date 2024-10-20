@@ -1,4 +1,4 @@
-from transactions import Transaction, Deposit, Withdraw
+from .transactions import Transaction, Deposit, Withdraw
 
 RED = "\033[31m"
 YELLOW = Y = "\033[33m"

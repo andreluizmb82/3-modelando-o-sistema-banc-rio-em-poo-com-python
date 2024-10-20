@@ -2,6 +2,7 @@
 .vscode
 .mypy_cache
 tests
+temp
 *.code-workspace
 *.pyc
 __pycache__
