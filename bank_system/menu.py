@@ -1,4 +1,4 @@
-import os
+from utils.console_utils import clear
 from models.account import Account
 from models.client import Individual
 
@@ -14,12 +14,6 @@ MSG_INVALID = f"{RED}Operação inválida, por favor selecione uma das opções 
 
 def color_menu_character (letra: str)-> str:
     return f"{RED}{BB}[{letra}]{RC}"
-
-def clear() -> None:
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
 
 class Menu:
     @staticmethod
