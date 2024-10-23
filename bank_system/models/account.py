@@ -57,18 +57,18 @@ class Account (ABC):
         return self._cpf_client
     
     @staticmethod
-    def get_total_number_of_accounts():
+    def get_total_number_of_accounts() -> int:
         return Account._total_number_of_accounts
     
     @staticmethod
     def get_account(number: int) -> Any:
+        if len (Account._accounts) <= 0:
+            raise ValueError(f"{RED}Nenhuma conta cadastrada em nossa base de dados!{RESET_COLOR}")
         try:
-            print("number", number)
             ac = Account._accounts[number - 1]
-            print(ac)
             return ac
         except :
-             raise ValueError(f"{RED}Nenhuma conta encontrada em nossa base de dados!{RESET_COLOR}")
+             raise ValueError(f"{RED}Conta não encontrada em nossa base de dados!{RESET_COLOR}")
     
     @staticmethod
     def get_accounts() -> list[Any]:
@@ -143,16 +143,25 @@ class Account (ABC):
             self._balance -= value
             self._statement.add_transaction(Withdraw(value))
             self._withdrawal_number += 1
+
         return msg
-    def deposit(self, value: float):
+    
+    def deposit(self, value: float) -> str:
         if value <= 0:
             return f"{RED}Operação falhou! O valor de R${value} é inválido.{RESET_COLOR}"
         self._balance += value
         self._statement.add_transaction(Deposit(value))
+
         return f"{GREEN}Depósito realizado com sucesso!\n{RESET_COLOR}"
     
     def get_statement(self)-> str:
         return self._statement.get_statement(self._balance)
+    
+    def to_json(self) -> str:
+        return "{" + f"{", ".join(
+        [
+            f"{key}: '{value}'" for key, value in self.__dict__.items()
+        ])}" + "}"
 
         
         
