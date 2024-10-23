@@ -1,0 +1,17 @@
+<div class="main-title">{{main_title}}</div>
+<div class="content">{{main_content}}</div>
+
+<script>
+  const storedClient = JSON.parse(localStorage.getItem("cliente")) // Parse first!
+
+  if (storedClient) {
+    // Check if data exists
+    console.log("Stored Client:", storedClient) // Log the entire object for inspection
+
+    // Now access properties safely
+    console.log("ID:", storedClient._id)
+    console.log("Date of Birth:", storedClient._date_of_birth)
+  } else {
+    console.error("No client data found in local storage.")
+  }
+</script>

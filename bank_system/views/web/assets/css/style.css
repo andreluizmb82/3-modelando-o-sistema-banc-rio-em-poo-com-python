@@ -1,0 +1,168 @@
+body {
+  background-color: rgb(252, 252, 252);
+}
+.content {
+  font-family: "Roboto", sans-serif;
+  font-size: 17px;
+  color: #010030;
+  background-color: rgb(230, 246, 250);
+  margin: 5px;
+  margin-left: 270px;
+  border-radius: 15px;
+}
+
+.page_title {
+  font-weight: bold;
+  font-family: "Lato", Arial, Helvetica;
+  font-weight: bold;
+  font-size: 35px;
+  margin-left: 270px;
+}
+
+.main-title {
+  font-weight: bold;
+  font-family: "Lato", Arial, Helvetica;
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 270px;
+}
+
+.red {
+  color: red;
+  font-weight: bold;
+}
+
+.green {
+  color: green;
+  font-weight: bold;
+}
+
+.yellow {
+  color: rgb(190, 190, 10);
+  font-weight: bold;
+}
+
+/*****************************************************/
+.menu-lateral {
+  display: flex;
+  flex-direction: column;
+  background-color: #010030;
+  width: 260px;
+  height: 100vh;
+  position: absolute;
+  border-radius: 15px;
+}
+
+.menu-lateral__link {
+  font-family: "Roboto", sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  height: 50px;
+  color: #95999c;
+  padding-left: 15px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+form.menu-lateral__link label {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-container {
+  font-family: "Roboto", sans-serif;
+  position: relative; /* O contêiner pai precisa de posição relativa */
+  width: 250px; /* Largura do contêiner */
+}
+
+.input-field {
+  position: relative;
+  width: 55%;
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #95999c;
+  box-sizing: content-box;
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.input-button {
+  position: relative;
+  width: 25%;
+  height: 45px;
+  margin-top: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 15px;
+}
+
+.input-label {
+  font-weight: bold;
+  width: 100%;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  transition: all 0.2s;
+  pointer-events: none;
+  color: #95999c;
+}
+
+/*****************************************************/
+.form-container {
+  font-family: "Roboto", sans-serif;
+  position: relative;
+  width: 500px;
+  height: 70px;
+}
+
+.form-field {
+  position: relative;
+  width: 100%;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #95999c;
+  box-sizing: content-box;
+  margin-top: 27px;
+  margin-left: 10px;
+}
+
+.form-button {
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  position: relative;
+  width: 120px;
+  height: 45px;
+  margin-top: 40px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 15px;
+}
+
+.form-label {
+  font-weight: bold;
+  width: 100%;
+  position: absolute;
+  top: 10px;
+  left: 18px;
+  transition: all 0.2s;
+  pointer-events: none;
+  color: #95999c;
+}
+
+.form-radio-button {
+  position: relative;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #95999c;
+  box-sizing: content-box;
+  margin-top: 40px;
+  margin-left: 10px;
+}

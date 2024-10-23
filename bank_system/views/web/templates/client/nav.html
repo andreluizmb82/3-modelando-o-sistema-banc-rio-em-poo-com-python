@@ -1,0 +1,121 @@
+<nav class="menu-lateral">
+  <div
+    id="account_selected"
+    class="menu-lateral__link"
+    style="margin-top: 30px; margin-bottom: 20px; height: 50px"
+  >
+    Clint nav
+  </div>
+  <div class="">
+    <a href="/" class="menu-lateral__link">Inicio</a>
+  </div>
+
+  <form
+    class="input-container"
+    autocomplete="on"
+    id="fm_account_search"
+    action="/client/account"
+    method="GET"
+  >
+    <label for="account_number" class="input-label"
+      >Selecionar a conta pelo número:</label
+    ><br />
+    <input
+      type="number"
+      name="account_number"
+      id="account_number"
+      placeholder="Número da conta"
+      class="input-field"
+      min="1"
+    />
+    <button type="submit" class="input-button" id="bt_account_search">
+      OK
+    </button>
+  </form>
+
+  <form
+    class="input-container"
+    autocomplete="on"
+    id="fm_deposit"
+    action="/client/deposit"
+    method="GET"
+  >
+    <input type="hidden" name="account_number" id="n1_account" />
+    <label for="deposit_value" class="input-label"
+      >Informe o valor do deposito:</label
+    ><br />
+    <input
+      type="number"
+      name="deposit_value"
+      id="deposit_value"
+      step="0.01"
+      min="0.00"
+      placeholder="0,00"
+      class="input-field"
+    />
+    <button type="submit" class="input-button" id="bt_deposit">OK</button>
+  </form>
+
+  <form
+    class="input-container"
+    autocomplete="on"
+    id="fm_withdraw"
+    action="/client/withdraw"
+    method="GET"
+  >
+    <input type="hidden" name="account_number" id="n2_account" />
+    <label for="withdraw_value" class="input-label"
+      >Informe o valor do saque:</label
+    ><br />
+    <input
+      type="number"
+      name="withdraw_value"
+      id="withdraw_value"
+      step="0.00"
+      min="0.00"
+      placeholder="0,00"
+      class="input-field"
+    />
+    <button type="submit" class="input-button" id="bt_withdraw">OK</button>
+  </form>
+
+  <a href="/client/statement" class="menu-lateral__link" id="statement"
+    >Extrato.
+  </a>
+</nav>
+
+<script>
+  //console.console.error(account_json)
+  try {
+    if (account_json) {
+      localStorage.setItem("account", JSON.stringify(account_json))
+    }
+  } catch (error) {}
+
+  let storedAccount = JSON.parse(localStorage.getItem("account"))
+  if (storedAccount) {
+    let cpf = storedAccount.cpf
+    let account_number = storedAccount.account_number
+    let bank_branch = storedAccount.bank_branch
+    let balance = storedAccount.balance
+
+    document.getElementById("account_selected").innerHTML = `
+    CPF: ${cpf}
+    <br />
+    Numero da conta: ${account_number}
+    <br />
+    Numero da agencia: ${bank_branch}
+    <br />
+    Saldo: R$ ${balance}
+
+    `
+
+    document.getElementById("statement").href =
+      "/client/statement?account_number=" + encodeURIComponent(account_number)
+
+    document.getElementById("n1_account").value = account_number
+    document.getElementById("n2_account").value = account_number
+  } else {
+    document.getElementById("user_selected").innerHTML = "Ola Mundo!"
+  }
+</script>

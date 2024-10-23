@@ -1,0 +1,71 @@
+<main class="content">
+  <h3 style="color: brown">Castrar novo cliente:</h3>
+  <form name="fm_new_client" id="fm_new_client" autocomplete="on">
+    <div class="form-container">
+      <label for="new_cpf" class="form-label">CPF*:</label>
+      <input
+        type="number"
+        name="new_cpf"
+        id="new_cpf"
+        placeholder="CPF*"
+        class="form-field"
+      />
+    </div>
+
+    <div class="form-container">
+      <label for="name" class="form-label">Name:</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        placeholder="Name Completo"
+        class="form-field"
+      />
+    </div>
+
+    <div class="form-container">
+      <label for="date_of_birth" class="form-label">Birth:</label>
+      <input
+        type="date"
+        name="date_of_birth"
+        id="date_of_birth"
+        placeholder="Birth"
+        class="form-field"
+      />
+    </div>
+
+    <div class="form-container">
+      <label for="address" class="form-label">Endereço:</label>
+      <input
+        type="text"
+        name="address"
+        id="address"
+        placeholder="Rua, número - Bairro - Cidade - UF - CEP"
+        class="form-field"
+      />
+    </div>
+
+    <div class="form-container">
+      <label for="create_new_account" class="form-label"
+        >Criar nova conta para este usuário?</label
+      >
+      <br />
+      <br />
+      <div>
+        <input
+          type="radio"
+          id="yes"
+          name="create_new_account"
+          checked="checked"
+          value="True"
+        />
+        <label for="html">Sim</label><br />
+        <input type="radio" id="no" name="create_new_account" value="False" />
+        <label for="css">Não</label><br />
+      </div>
+    </div>
+
+    <button type="button" class="form-button" id="bt_save">Salvar</button>
+  </form>
+  {{main_content}}
+</main>

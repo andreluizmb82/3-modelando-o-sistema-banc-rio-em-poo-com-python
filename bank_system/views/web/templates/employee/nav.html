@@ -1,0 +1,86 @@
+<nav class="menu-lateral">
+  <div id="user_selected" class="menu-lateral__link">OI</div>
+  <div class="">
+    <a href="/" class="menu-lateral__link">Inicio</a>
+  </div>
+  <form
+    class="input-container"
+    autocomplete="on"
+    id="fm_cpf_search"
+    action="/employee/client"
+    method="GET"
+  >
+    <label for="cpf" class="input-label">Selecionar Cliente pelo CPF</label
+    ><br />
+    <input
+      type="number"
+      name="cpf"
+      id="cpf"
+      placeholder="CPF"
+      class="input-field"
+    />
+    <button type="button" class="input-button" id="bt_ok">OK</button>
+  </form>
+
+  <a href="/employee/new_client" class="menu-lateral__link"
+    >Criar Novo Cliente.
+  </a>
+
+  <a href="/employee/new_account" class="menu-lateral__link" id="new_account"
+    >Criar Nova Conta.
+  </a>
+
+  <a href="/employee/clients_list" class="menu-lateral__link"
+    >Listar Clientes.
+  </a>
+
+  <a href="/employee/account_list" class="menu-lateral__link"
+    >Listar Contas.
+  </a>
+</nav>
+
+<script>
+  storedClient = JSON.parse(localStorage.getItem("cliente"))
+  if (storedClient) {
+    let cpf = storedClient._id
+
+    document.getElementById("user_selected").innerHTML = `
+    Usuário: ${storedClient._name}
+    <br />
+    CPF: ${cpf}
+    `
+
+    document.getElementById("new_account").href =
+      "/employee/new_account?cpf=" + encodeURIComponent(cpf)
+    console.log(
+      "cpf: " + "/employee/new_account?cpf=" + encodeURIComponent(cpf)
+    )
+  } else {
+    document.getElementById("user_selected").innerHTML = "Ola Mundo!"
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("fm_cpf_search")
+    if (form) {
+      // Check if the button exists
+      form.addEventListener("submit", function (event) {
+        event.preventDefault() // Previne o envio automático
+        console.error("Form submitted!")
+      })
+    } else {
+      console.error("Form 'fm_cpf_search' element not found!") // Helpful debugging message
+    }
+
+    const button = document.getElementById("bt_ok")
+    if (button) {
+      // Check if the button exists
+      button.addEventListener("click", function () {
+        form.submit()
+      })
+    } else {
+      {
+        console.error("Button 'bt_ok' element not found!") // Helpful debugging message
+      }
+    }
+  })
+</script>
