@@ -37,13 +37,27 @@ class Client(ABC):
     def get_client(id: str) -> Any:
         result = [client for client in Client.get_clients() if client.id == id]
         return result[0] if len(result) > 0 else None
-        
-        
+    
+    @abstractmethod    
+    def create_account(self) -> str:
+         pass
+    ''' 
+    @abstractmethod 
+    @staticmethod   
+    def create_new_client() -> str:
+        pass
+    ''' 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}: {", ".join(
             [
                 f"{key} = {value}" for key, value in self.__dict__.items()
             ])}"
+            
+    def to_json(self) -> str:
+        return "{" + f"{", ".join(
+        [
+            f"{key}: '{value}'" for key, value in self.__dict__.items()
+        ])}" + "}"
 
     
     
@@ -59,6 +73,12 @@ class Individual(Client):
         create_account: bool = False
     ) -> None:
         
+        
+        if cpf == "":
+            raise ValueError(RED + "O cpf não pode ser vazio!" + RESET_COLOR)
+        if name == "'?'" or len(name) < 3 :
+            raise ValueError(RED + "O nome tem que ter o mínimo de 3 caracteres!" + RESET_COLOR)
+            
         clients = Client.get_clients()
         for client in clients : 
             if client.id == cpf:
@@ -69,7 +89,7 @@ class Individual(Client):
         self._name = name
         self._date_of_birth = date_of_birth
         if create_account:
-            self.create_account(cpf)
+            self.create_account()
             
         
     @property
@@ -100,9 +120,9 @@ class Individual(Client):
         self.accounts.append(account)
         return GREEN + "\nConta vinculada com sucesso!" + RESET_COLOR
     
-    def create_account(self, cpf: str = "") -> str:
+    def create_account(self) -> str:
 
-        account: Account = Account(cpf)
+        account: Account = Account(self.cpf)
 
         if account:
             self.accounts.append(account)
@@ -111,7 +131,7 @@ class Individual(Client):
     
     def get_str_client(self) -> str:
         # Header
-        client = YELLOW + "\n" + " Clientes ".center(52,"=") + RESET_COLOR
+        client = YELLOW + "\n" + " Clientes ".center(54,"=") + RESET_COLOR
         
         # Body
         client += f"{YELLOW}\nNome: {self.name}{RESET_COLOR}"
@@ -119,7 +139,8 @@ class Individual(Client):
         client += f"{YELLOW}\nData de nascimento: {self.date_of_birth}{RESET_COLOR}"
         client += f"{YELLOW}\nEndereço: {self.address}{RESET_COLOR}"
         
-        client += YELLOW + "\n" + " Contas ".center(52,"-") + RESET_COLOR
+        client += GREEN + "\n" + "".center(52,"=") + RESET_COLOR
+        client += YELLOW + "\n" + " Contas ".center(53,"=") + RESET_COLOR
         if len(self.accounts) <= 0:
             client += f"{RED}\nNenhuma conta vinculada a este usuário!{RESET_COLOR}"
         else:
@@ -141,29 +162,33 @@ class Individual(Client):
             accounts += account.get_str_account()
         return accounts
     
+    @classmethod
+    def create_new_client(
+        cls,
+        cpf: str, 
+        name: str, 
+        date_of_birth: str, 
+        address: str, 
+        create_account: bool = False
+    ) -> tuple[Client|None, str]:
+        try:
+            if cpf  == "?":
+                return None, RED + "\nCPF não pode ser vazio!" + RESET_COLOR
+            
+            return (
+                Individual(
+                    cpf=cpf,
+                    name=name,
+                    date_of_birth=date_of_birth,
+                    address=address,
+                    create_account=create_account
+                ), 
+                f"{GREEN}\nCliente criado com sucesso!{RESET_COLOR}"
+            )
+        except ValueError as error:
+            return Client.get_client(cpf), RED + f"\n{error}" + RESET_COLOR
+        
+    
 if __name__ == "__main__":
-    try:
-        a = Individual("111.111.111-11", "Joaão", "01/01/2000", "Rua dos Bobos, 0", True)
-        print(a)
-    except ValueError as exp:
-        print(exp)
-    
-    try:
-        b = Individual("111.111.111-11", "Joaão-Dinovo", "01/01/2000", "Rua dos Bobos, 0", False)
-        print(b)
-    except ValueError as exp:
-        print(exp)
-    
-    try:
-        c = Individual("222.222.222-22", "Maria", "01/01/2000", "Rua dos Bobos, 0", True)
-        print(c)
-        
-        c.create_account()
-        
-        
-        print(c.str_accounts)
-        
-        print(c.get_str_clients())
-    except ValueError as exp:
-        print(exp)
+    pass
         
