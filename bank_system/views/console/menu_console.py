@@ -1,19 +1,7 @@
-from utils.console_utils import clear
+from utils.console_utils import *
 from models.account import Account
-from models.client import Individual
+from models.client import Individual, Client
 
-
-RED = "\033[31m"
-YELLOW = Y = "\033[33m"
-GREEN = "\033[32m"
-BLUE = "\033[34m"
-BLUE_BACKGROUND = BB= "\033[44m"
-RESET_COLOR = RC = "\033[0m"
-
-MSG_INVALID = f"{RED}Operação inválida, por favor selecione uma das opções disponíveis no menu.{RESET_COLOR}"
-
-def color_menu_character (letra: str)-> str:
-    return f"{RED}{BB}[{letra}]{RC}"
 
 class Menu:
     @staticmethod
@@ -49,7 +37,7 @@ class Menu:
     def employee_menu() -> None:
         clear()
         OI = f"{BLUE}Olá, seja bem vindo ao Banco Python!{RESET_COLOR}"
-        client = None
+        client: Client | None = None
         while True:
             MENU = f"""
 {YELLOW}---- MENU ------------------------------------------{RESET_COLOR}
